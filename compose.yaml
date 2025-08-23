@@ -1,0 +1,8 @@
+services:
+  db-helpdesck:
+    image: postgres:16-alpine
+    container_name: db-helpdesck
+    environment:
+      POSTGRES_DB: helpdesk
+      POSTGRES_PASSWORD: helpdesk_password
+    
