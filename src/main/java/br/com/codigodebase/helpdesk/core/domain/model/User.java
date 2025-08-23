@@ -1,7 +1,10 @@
 package br.com.codigodebase.helpdesk.core.domain.model;
 
+import java.util.UUID;
+
 public class User {
 
+    private UUID id;
     private String username;
     private String name;
     private String email;
@@ -15,6 +18,14 @@ public class User {
         this.name = name;
         this.email = email;
         this.password = password;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 
     public String getUsername() {
