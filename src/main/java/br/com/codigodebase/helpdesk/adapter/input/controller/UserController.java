@@ -1,5 +1,6 @@
 package br.com.codigodebase.helpdesk.adapter.input.controller;
 
+import br.com.codigodebase.helpdesk.adapter.input.mapper.UserMapper;
 import br.com.codigodebase.helpdesk.adapter.input.request.UserRequest;
 import br.com.codigodebase.helpdesk.core.domain.model.User;
 import br.com.codigodebase.helpdesk.port.input.UserInputPort;
@@ -17,10 +18,13 @@ public class UserController {
 
     @Autowired
     private UserInputPort userInputPort;
+
+    @Autowired
+    private UserMapper mapper;
     
     @PostMapping
     public ResponseEntity create(@RequestBody UserRequest userRequest) {
-        User user = new User(userRequest.getUsername(), userRequest.getName(), userRequest.getEmail(), userRequest.getPassword());
+        User user = mapper.toUser(userRequest);
         var newUser = userInputPort.createUser(user);
         
         return ResponseEntity.status(HttpStatus.CREATED).body(newUser);
