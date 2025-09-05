@@ -2,6 +2,7 @@ package br.com.codigodebase.helpdesk.adapter.input.controller;
 
 import br.com.codigodebase.helpdesk.adapter.input.mapper.UserMapper;
 import br.com.codigodebase.helpdesk.adapter.input.request.UserRequest;
+import br.com.codigodebase.helpdesk.adapter.input.response.UserResponse;
 import br.com.codigodebase.helpdesk.core.domain.model.User;
 import br.com.codigodebase.helpdesk.port.input.UserInputPort;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +26,9 @@ public class UserController {
     @PostMapping
     public ResponseEntity create(@RequestBody UserRequest userRequest) {
         User user = mapper.toUser(userRequest);
-        var newUser = userInputPort.createUser(user);
-        
-        return ResponseEntity.status(HttpStatus.CREATED).body(newUser);
+        User newUser = userInputPort.createUser(user);
+        UserResponse response = mapper.toUserResponse(newUser);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 }
