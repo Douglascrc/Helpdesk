@@ -1,4 +1,4 @@
-package br.com.codigodebase.helpdesk.adapter.output.repository.impl;
+package br.com.codigodebase.helpdesk.adapter.output.repository;
 
 import br.com.codigodebase.helpdesk.core.domain.model.User;
 import br.com.codigodebase.helpdesk.port.output.UserOutputPort;
@@ -12,7 +12,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public class UserRepositoryImpl implements UserOutputPort {
+public class UserRepository implements UserOutputPort {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
