@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -21,17 +20,15 @@ public class UserRepository implements UserOutputPort {
     public User save(User user) {
         if (user.getId() == null) {
             user.setId(UUID.randomUUID());
-            jdbcTemplate.update(
-                    "INSERT INTO users (id, username, password, email, name, active, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
-                    user.getId(), user.getUsername(), user.getPassword(), user.getEmail(), user.getName(), true, LocalDateTime.now(), LocalDateTime.now()
-            );
-
-        }else {
-            jdbcTemplate.update(
-              "UPDATE users SET username = ?, password = ?, email = ?, name = ?, updated_at = ? WHERE id = ?" ,
-              user.getUsername(), user.getPassword(), user.getEmail(), user.getName(), LocalDateTime.now(), user.getId()
-            );
         }
+        jdbcTemplate.update("CALL pr_create_user(?, ?, ?, ?, ?)",
+                user.getId().toString(),
+                user.getUsername(),
+                user.getPassword(),
+                user.getEmail(),
+                user.getName()
+        );
+
         return user;
     }
 
