@@ -6,9 +6,9 @@ spring:
     application:
         name: helpdesk
     datasource:
-      url: jdbc:postgresql://localhost:5432/helpdesk
-      username: postgres
-      password: helpdesk_password
+      url: ${env.DATABASE_URL}
+      username: ${env.DATABASE_USERNAME}
+      password: ${env.DATABASE_PASSWORD}
       driver-class-name: org.postgresql.Driver
     flyway:
       enabled: true

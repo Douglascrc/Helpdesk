@@ -4,5 +4,4 @@ import br.com.codigodebase.helpdesk.core.domain.model.User;
 
 public interface UserInputPort {
     User createUser(User user);
-    // O Controller chama esse método para criar um usuário
 }

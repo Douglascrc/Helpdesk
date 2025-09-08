@@ -1,4 +1,4 @@
-package br.com.codigodebase.helpdesk.adapter.output.repository.entity;
+package br.com.codigodebase.helpdesk.adapter.output.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
