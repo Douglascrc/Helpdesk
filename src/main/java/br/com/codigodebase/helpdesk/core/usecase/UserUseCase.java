@@ -1,6 +1,6 @@
 package br.com.codigodebase.helpdesk.core.usecase;
 
-import br.com.codigodebase.helpdesk.core.domain.model.User;
+import br.com.codigodebase.helpdesk.core.domain.User;
 import br.com.codigodebase.helpdesk.port.input.UserInputPort;
 import br.com.codigodebase.helpdesk.port.output.UserOutputPort;
 

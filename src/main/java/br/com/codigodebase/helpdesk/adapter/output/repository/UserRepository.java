@@ -1,6 +1,6 @@
 package br.com.codigodebase.helpdesk.adapter.output.repository;
 
-import br.com.codigodebase.helpdesk.core.domain.model.User;
+import br.com.codigodebase.helpdesk.core.domain.User;
 import br.com.codigodebase.helpdesk.port.output.UserOutputPort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;

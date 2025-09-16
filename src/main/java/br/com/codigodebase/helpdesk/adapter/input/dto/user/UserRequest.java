@@ -1,4 +1,4 @@
-package br.com.codigodebase.helpdesk.adapter.input.request;
+package br.com.codigodebase.helpdesk.adapter.input.dto.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,4 +15,5 @@ public class UserRequest{
     private String name;
     private String email;
     private String password;
+
 }
