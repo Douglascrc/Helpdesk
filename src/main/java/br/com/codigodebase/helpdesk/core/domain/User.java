@@ -1,4 +1,4 @@
-package br.com.codigodebase.helpdesk.core.domain.model;
+package br.com.codigodebase.helpdesk.core.domain;
 
 import java.util.UUID;
 

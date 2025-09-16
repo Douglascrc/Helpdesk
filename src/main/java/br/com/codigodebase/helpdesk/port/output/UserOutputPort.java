@@ -1,6 +1,6 @@
 package br.com.codigodebase.helpdesk.port.output;
 
-import br.com.codigodebase.helpdesk.core.domain.model.User;
+import br.com.codigodebase.helpdesk.core.domain.User;
 
 import java.util.List;
 import java.util.Optional;
