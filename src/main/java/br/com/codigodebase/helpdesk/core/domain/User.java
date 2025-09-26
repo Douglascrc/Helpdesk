@@ -9,15 +9,26 @@ public class User {
     private String name;
     private String email;
     private String password;
+    private boolean active;
 
     public User() {
     }
 
-    public User(String username, String name, String email, String password) {
+    public User(UUID id, String username, String name, String email, String password, boolean active) {
+        this.id = id;
         this.username = username;
         this.name = name;
         this.email = email;
         this.password = password;
+        this.active = active;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     public UUID getId() {
