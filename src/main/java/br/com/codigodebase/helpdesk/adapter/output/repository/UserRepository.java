@@ -6,6 +6,7 @@ import br.com.codigodebase.helpdesk.core.domain.User;
 import br.com.codigodebase.helpdesk.port.output.UserOutputPort;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -60,8 +61,8 @@ public class UserRepository implements UserOutputPort {
             );
             log.info("User found with id: {}", id);
             return Optional.of(mapper.toDomain(user));
-            } catch (Exception e) {
-                throw new RuntimeException("User not found");
+            } catch (EmptyResultDataAccessException e) {
+            return Optional.empty();
             }
 
     }
