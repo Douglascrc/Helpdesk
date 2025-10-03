@@ -1,11 +1,13 @@
 package br.com.codigodebase.helpdesk.adapter.input.dto.user;
 
-import lombok.Builder;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.UUID;
 
-@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Data
 public class UserResponse {
 

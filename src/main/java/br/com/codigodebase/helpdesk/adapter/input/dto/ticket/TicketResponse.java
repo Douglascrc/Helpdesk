@@ -1,12 +1,12 @@
 package br.com.codigodebase.helpdesk.adapter.input.dto.ticket;
 
 import br.com.codigodebase.helpdesk.adapter.output.enums.TicketStatus;
-import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.UUID;
 
-@Builder
+@NoArgsConstructor
 @Data
 public class TicketResponse {
 
