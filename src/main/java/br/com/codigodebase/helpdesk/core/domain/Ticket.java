@@ -8,19 +8,19 @@ public class Ticket {
     private String description;
     private String status;
     private UUID createdBy;
-    private UUID atendantUser;
+    private UUID supportUser;
     private UUID updatedBy;
 
 
     public Ticket() {}
 
-    public Ticket(UUID id, String subject, String description, String status, UUID createdBy, UUID atendantUser, UUID updatedBy) {
+    public Ticket(UUID id, String subject, String description, String status, UUID createdBy, UUID supportUser, UUID updatedBy) {
         this.id = id;
         this.subject = subject;
         this.description = description;
         this.status = status;
         this.createdBy = createdBy;
-        this.atendantUser = atendantUser;
+        this.supportUser = supportUser;
         this.updatedBy = updatedBy;
     }
 
@@ -33,11 +33,11 @@ public class Ticket {
     }
 
     public UUID getAtendantUser() {
-        return atendantUser;
+        return supportUser;
     }
 
-    public void setAtendantUser(UUID atendantUser) {
-        this.atendantUser = atendantUser;
+    public void setAtendantUser(UUID supportUser) {
+        this.supportUser = supportUser;
     }
 
     public UUID getUpdatedBy() {

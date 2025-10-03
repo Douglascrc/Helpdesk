@@ -1,6 +1,5 @@
 package br.com.codigodebase.helpdesk.adapter.output.entity;
 
-import br.com.codigodebase.helpdesk.adapter.output.enums.TicketStatus;
 import lombok.Builder;
 import lombok.Data;
 
@@ -9,18 +8,15 @@ import java.util.UUID;
 
 @Builder
 @Data
-public class TicketEntity {
+public class TicketAttachmentEntity {
 
     private UUID id;
 
-    private UserEntity supportUser;
+    private TicketEntity ticket;
 
-    private String subject;
+    private TicketInteractionEntity ticketInteraction;
 
-    private String description;
-
-    @Builder.Default
-    private TicketStatus status = TicketStatus.OPEN;
+    private String fileName;
 
     private UserEntity createdBy;
 
