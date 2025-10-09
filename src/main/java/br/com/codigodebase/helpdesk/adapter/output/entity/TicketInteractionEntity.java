@@ -1,5 +1,6 @@
 package br.com.codigodebase.helpdesk.adapter.output.entity;
 
+import br.com.codigodebase.helpdesk.adapter.output.enums.TicketStatus;
 import lombok.Builder;
 import lombok.Data;
 
@@ -17,6 +18,9 @@ public class TicketInteractionEntity {
     private UserEntity sentByUser;
 
     private String message;
+
+    @Builder.Default
+    private TicketStatus status = TicketStatus.OPEN;
 
     private UserEntity createdBy;
 

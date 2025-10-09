@@ -5,7 +5,6 @@ import br.com.codigodebase.helpdesk.adapter.output.entity.UserEntity;
 import br.com.codigodebase.helpdesk.core.domain.User;
 import br.com.codigodebase.helpdesk.port.output.UserOutputPort;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;

@@ -18,6 +18,6 @@ public class UseCaseConfig {
     }
 
     @Bean
-    public TicketInputPort ticketInputPort(TicketOutputPort ticketOutputPort) {return new TicketUseCase(ticketOutputPort);
+    public TicketInputPort ticketInputPort(TicketOutputPort ticketOutputPort, UserOutputPort userOutputPort) {return new TicketUseCase(ticketOutputPort, userOutputPort);
     }
 }

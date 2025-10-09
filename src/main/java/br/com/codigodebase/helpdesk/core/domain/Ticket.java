@@ -32,11 +32,11 @@ public class Ticket {
         this.createdBy = createdBy;
     }
 
-    public UUID getAtendantUser() {
+    public UUID getSupportUser() {
         return supportUser;
     }
 
-    public void setAtendantUser(UUID supportUser) {
+    public void setSupportUser(UUID supportUser) {
         this.supportUser = supportUser;
     }
 
