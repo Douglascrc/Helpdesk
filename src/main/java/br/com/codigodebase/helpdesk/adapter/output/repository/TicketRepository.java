@@ -1,6 +1,7 @@
 package br.com.codigodebase.helpdesk.adapter.output.repository;
 
 import br.com.codigodebase.helpdesk.core.domain.Ticket;
+import br.com.codigodebase.helpdesk.core.domain.TicketInteraction;
 import br.com.codigodebase.helpdesk.port.output.TicketOutputPort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -65,4 +66,22 @@ public class TicketRepository implements TicketOutputPort {
     public void deleteById(UUID id) {
 
     }
+
+    @Override
+    public TicketInteraction saveInteraction(TicketInteraction interaction) {
+        UUID interactionId = jdbcTemplate.execute((ConnectionCallback<UUID>) (connection) -> {
+            try (CallableStatement cs = connection.prepareCall("CALL pr_add_ticket_interaction(?,?,?,?,?)")) {
+                cs.setObject(1, interaction.getTicketId(), Types.OTHER);
+                cs.setObject(2, interaction.getUserId(), Types.OTHER);
+                cs.setString(3, interaction.getMessage());
+                cs.setObject(4, interaction.getStatus(), Types.VARCHAR);
+                cs.registerOutParameter(5,Types.OTHER);
+                cs.execute();
+                return (UUID) cs.getObject(5);
+            }
+        });
+        interaction.setId(interactionId);
+        return interaction;
+    }
+
 }
