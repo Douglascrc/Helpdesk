@@ -1,24 +1,30 @@
 package br.com.codigodebase.helpdesk.core.usecase;
 
 import br.com.codigodebase.helpdesk.adapter.input.mapper.TicketMapper;
+
 import br.com.codigodebase.helpdesk.adapter.output.enums.TicketStatus;
-import br.com.codigodebase.helpdesk.core.domain.Ticket;
-import br.com.codigodebase.helpdesk.core.domain.TicketInteraction;
-import br.com.codigodebase.helpdesk.core.domain.User;
+import br.com.codigodebase.helpdesk.core.domain.*;
 import br.com.codigodebase.helpdesk.infrastructure.exception.BusinessException;
+import br.com.codigodebase.helpdesk.infrastructure.utils.FileUtils;
 import br.com.codigodebase.helpdesk.port.input.TicketInputPort;
 import br.com.codigodebase.helpdesk.port.output.TicketOutputPort;
 import br.com.codigodebase.helpdesk.port.output.UserOutputPort;
+
+import java.io.File;
+import java.io.IOException;
+
 
 public class TicketUseCase implements TicketInputPort {
 
     private TicketOutputPort ticketOutputPort;
     private UserOutputPort userOutputPort;
     private TicketMapper mapper;
+    private String attachmentsFolder;
 
-    public TicketUseCase(TicketOutputPort ticketOutputPort, UserOutputPort userOutputPort) {
+    public TicketUseCase(TicketOutputPort ticketOutputPort, UserOutputPort userOutputPort, String attachmentsFolder) {
         this.ticketOutputPort = ticketOutputPort;
         this.userOutputPort = userOutputPort;
+        this.attachmentsFolder = attachmentsFolder;
     }
 
     public Ticket createTicket(Ticket ticket) {
@@ -51,10 +57,35 @@ public class TicketUseCase implements TicketInputPort {
         newInteraction.setSentByUser(user);
         newInteraction.setStatus(TicketStatus.IN_PROGRESS);
 
-        ticket.setStatus(TicketStatus.IN_PROGRESS.name());
         ticketOutputPort.saveInteraction(newInteraction);
+
+        if (interaction.getAttachments() != null && !interaction.getAttachments().isEmpty()) {
+            for (Attachment attachment : interaction.getAttachments()) {
+                TicketAttachment ticketAttachment = new TicketAttachment();
+                ticketAttachment.setTicket(ticket);
+                ticketAttachment.setCreatedBy(user);
+                ticketAttachment.setFilename(attachment.getFilename());
+                ticketAttachment = ticketOutputPort.saveTicketAttachment(ticketAttachment);
+                saveFileToDisk(ticketAttachment, attachment.getContent());
+            }
+        }
+
+        ticket.setUpdatedBy(user.getId());
+        ticket.setStatus(TicketStatus.IN_PROGRESS.name());
         ticketOutputPort.save(ticket);
 
         return newInteraction;
+    }
+
+    private void saveFileToDisk(TicketAttachment entity, String content) {
+        byte[] attachmentContent = null;
+        try {
+            attachmentContent = FileUtils.convertBase64ToByteArray(content);
+            String fileName = entity.getId().toString();
+
+            FileUtils.saveByteArrayToFile(attachmentContent, new File(attachmentsFolder + fileName));
+        } catch (IOException ex) {
+            throw new BusinessException("Error saving " + entity.getFilename() + " file");
+        }
     }
 }

@@ -2,6 +2,8 @@ package br.com.codigodebase.helpdesk.core.domain;
 
 import br.com.codigodebase.helpdesk.adapter.output.enums.TicketStatus;
 
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 public class TicketInteraction {
@@ -12,11 +14,15 @@ public class TicketInteraction {
     private UUID ticketId;
     private TicketStatus status;
     private User createdBy;
-
+    private Ticket ticket;
+    private List<Attachment> attachments;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+    private UUID updatedBy;
 
     public TicketInteraction() {}
 
-    public TicketInteraction(UUID id, String message, User sentByUser, UUID userId, UUID ticketId, TicketStatus status, User createdBy) {
+    public TicketInteraction(UUID id, String message, User sentByUser, UUID userId, UUID ticketId, TicketStatus status, User createdBy, Ticket ticket, List<Attachment> attachments, LocalDateTime createdAt, LocalDateTime updatedAt, UUID updatedBy) {
         this.id = id;
         this.message = message;
         this.sentByUser = sentByUser;
@@ -24,6 +30,27 @@ public class TicketInteraction {
         this.ticketId = ticketId;
         this.status = status;
         this.createdBy = createdBy;
+        this.ticket = ticket;
+        this.attachments = attachments;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.updatedBy = updatedBy;
+    }
+
+    public Ticket getTicket() {
+        return ticket;
+    }
+
+    public void setTicket(Ticket ticket) {
+        this.ticket = ticket;
+    }
+
+    public List<Attachment> getAttachments() {
+        return attachments;
+    }
+
+    public void setAttachments(List<Attachment> attachments) {
+        this.attachments = attachments;
     }
 
     public UUID getId() {
@@ -82,4 +109,27 @@ public class TicketInteraction {
         this.createdBy = createdBy;
     }
 
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public UUID getUpdatedBy() {
+        return updatedBy;
+    }
+
+    public void setUpdatedBy(UUID updatedBy) {
+        this.updatedBy = updatedBy;
+    }
 }

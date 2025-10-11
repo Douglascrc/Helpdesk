@@ -10,4 +10,6 @@ public class TicketInteratictionRequest {
     private String message;
 
     private UUID userId;
+
+    private String attachment;
 }

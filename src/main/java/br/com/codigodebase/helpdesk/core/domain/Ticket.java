@@ -1,5 +1,7 @@
 package br.com.codigodebase.helpdesk.core.domain;
 
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 public class Ticket {
@@ -7,14 +9,16 @@ public class Ticket {
     private String subject;
     private String description;
     private String status;
-    private UUID createdBy;
-    private UUID supportUser;
+    private User createdBy;
+    private User supportUser;
     private UUID updatedBy;
-
+    private List<Attachment> attachments;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
     public Ticket() {}
 
-    public Ticket(UUID id, String subject, String description, String status, UUID createdBy, UUID supportUser, UUID updatedBy) {
+    public Ticket(UUID id, String subject, String description, String status, User createdBy, User supportUser, UUID updatedBy, List<Attachment> attachments, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.subject = subject;
         this.description = description;
@@ -22,21 +26,24 @@ public class Ticket {
         this.createdBy = createdBy;
         this.supportUser = supportUser;
         this.updatedBy = updatedBy;
+        this.attachments = attachments;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 
-    public UUID getCreatedBy() {
+    public User getCreatedBy() {
         return createdBy;
     }
 
-    public void setCreatedBy(UUID createdBy) {
+    public void setCreatedBy(User createdBy) {
         this.createdBy = createdBy;
     }
 
-    public UUID getSupportUser() {
+    public User getSupportUser() {
         return supportUser;
     }
 
-    public void setSupportUser(UUID supportUser) {
+    public void setSupportUser(User supportUser) {
         this.supportUser = supportUser;
     }
 
@@ -78,5 +85,29 @@ public class Ticket {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public List<Attachment> getAttachments() {
+        return attachments;
+    }
+
+    public void setAttachments(List<Attachment> attachments) {
+        this.attachments = attachments;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }

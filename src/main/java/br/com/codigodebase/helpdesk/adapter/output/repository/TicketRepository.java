@@ -1,7 +1,9 @@
 package br.com.codigodebase.helpdesk.adapter.output.repository;
 
 import br.com.codigodebase.helpdesk.core.domain.Ticket;
+import br.com.codigodebase.helpdesk.core.domain.TicketAttachment;
 import br.com.codigodebase.helpdesk.core.domain.TicketInteraction;
+import br.com.codigodebase.helpdesk.core.domain.User;
 import br.com.codigodebase.helpdesk.port.output.TicketOutputPort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -27,7 +29,7 @@ public class TicketRepository implements TicketOutputPort {
             try(CallableStatement cs = connection.prepareCall("CALL pr_create_ticket(?,?,?,?)")){
                 cs.setString(1, ticket.getSubject());
                 cs.setString(2, ticket.getDescription());
-                cs.setObject(3, ticket.getCreatedBy(), Types.OTHER);
+                cs.setObject(3, ticket.getCreatedBy().getId(), Types.OTHER);
                 cs.registerOutParameter(4, Types.OTHER);
                 cs.execute();
                 return (UUID) cs.getObject(4);
@@ -44,10 +46,12 @@ public class TicketRepository implements TicketOutputPort {
 
             return Optional.ofNullable(jdbcTemplate.queryForObject(sql, (rs, rowNum) -> {
                 Ticket ticket = new Ticket();
+                User user = new User();
+                user.setId(UUID.fromString(rs.getString("created_by")));
                 ticket.setId(UUID.fromString(rs.getString("id")));
                 ticket.setSubject(rs.getString("subject"));
                 ticket.setDescription(rs.getString("description"));
-                ticket.setCreatedBy(UUID.fromString(rs.getString("created_by")));
+                ticket.setCreatedBy(user);
                 ticket.setStatus(rs.getString("status"));
                 return ticket;
             }, id));
@@ -60,11 +64,6 @@ public class TicketRepository implements TicketOutputPort {
     @Override
     public List<Ticket> findAll() {
         return List.of();
-    }
-
-    @Override
-    public void deleteById(UUID id) {
-
     }
 
     @Override
@@ -82,6 +81,22 @@ public class TicketRepository implements TicketOutputPort {
         });
         interaction.setId(interactionId);
         return interaction;
+    }
+
+    @Override
+    public TicketAttachment saveTicketAttachment(TicketAttachment ticketAttachment) {
+        UUID attachmentId = jdbcTemplate.execute((ConnectionCallback<UUID>) (connection) -> {
+            try (CallableStatement cs = connection.prepareCall("CALL pr_add_ticket_attachment(?,?,?,?)")) {
+                cs.setObject(1, ticketAttachment.getTicket().getId(), Types.OTHER);
+                cs.setObject(2, ticketAttachment.getCreatedBy().getId(), Types.OTHER);
+                cs.setString(3, ticketAttachment.getFilename());
+                cs.registerOutParameter(4, Types.OTHER);
+                cs.execute();
+                return (UUID) cs.getObject(4);
+            }
+        });
+        ticketAttachment.setId(attachmentId);
+        return ticketAttachment;
     }
 
 }

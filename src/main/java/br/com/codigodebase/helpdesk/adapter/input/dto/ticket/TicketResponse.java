@@ -18,5 +18,5 @@ public class TicketResponse {
 
     private UUID createdBy;
 
-    TicketStatus status;
+    private TicketStatus status;
 }

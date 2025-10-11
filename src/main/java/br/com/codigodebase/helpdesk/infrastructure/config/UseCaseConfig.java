@@ -6,6 +6,7 @@ import br.com.codigodebase.helpdesk.port.input.TicketInputPort;
 import br.com.codigodebase.helpdesk.port.input.UserInputPort;
 import br.com.codigodebase.helpdesk.port.output.TicketOutputPort;
 import br.com.codigodebase.helpdesk.port.output.UserOutputPort;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -18,6 +19,6 @@ public class UseCaseConfig {
     }
 
     @Bean
-    public TicketInputPort ticketInputPort(TicketOutputPort ticketOutputPort, UserOutputPort userOutputPort) {return new TicketUseCase(ticketOutputPort, userOutputPort);
+    public TicketInputPort ticketInputPort(TicketOutputPort ticketOutputPort, UserOutputPort userOutputPort, @Value("${helpdesk.attachments-folder}") String attachmentsFolder) {return new TicketUseCase(ticketOutputPort, userOutputPort, attachmentsFolder);
     }
 }

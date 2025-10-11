@@ -6,9 +6,12 @@ import br.com.codigodebase.helpdesk.adapter.input.dto.ticketInteraction.TicketIn
 import br.com.codigodebase.helpdesk.adapter.input.dto.ticketInteraction.TicketInteratictionRequest;
 import br.com.codigodebase.helpdesk.core.domain.Ticket;
 import br.com.codigodebase.helpdesk.core.domain.TicketInteraction;
+import br.com.codigodebase.helpdesk.core.domain.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
+
+import java.util.UUID;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface TicketMapper {
@@ -23,4 +26,18 @@ public interface TicketMapper {
     TicketInteractionResponse toResponse(TicketInteraction ticket);
 
     TicketInteraction toDomain(TicketInteraction request);
+
+    default User map(UUID userId) {
+        if (userId == null) {
+            return null;
+        }
+        User user = new User();
+        user.setId(userId);
+        return user;
+    }
+
+    default UUID map(User user) {
+        return user == null ? null : user.getId();
+    }
+
 }

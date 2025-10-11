@@ -16,7 +16,7 @@ public class TicketAttachmentEntity {
 
     private TicketInteractionEntity ticketInteraction;
 
-    private String fileName;
+    private String filename;
 
     private UserEntity createdBy;
 
