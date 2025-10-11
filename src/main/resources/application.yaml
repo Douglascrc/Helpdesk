@@ -14,3 +14,6 @@ spring:
       enabled: true
       baseline-on-migrate: false
       locations: classpath:db/migration
+
+helpdesk:
+  attachments-folder: ${env.ATTACHMENTS_FOLDER}
