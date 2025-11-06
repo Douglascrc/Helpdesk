@@ -97,4 +97,25 @@ public class UserRepository implements UserOutputPort {
         jdbcTemplate.update("UPDATE users SET active = false WHERE id = CAST(? AS uuid)", id.toString());
         log.info("User with id {} set to inactive", id);
     }
+
+    public User findByUsername(String username) {
+        try {
+            UserEntity user = jdbcTemplate.queryForObject(
+                    "SELECT * FROM users WHERE username = ?",
+                    new Object[]{username},
+                    (rs, rowNum) -> new UserEntity(
+                            UUID.fromString(rs.getString("id")),
+                            rs.getString("username"),
+                            rs.getString("password"),
+                            rs.getString("email"),
+                            rs.getString("name"),
+                            rs.getBoolean("active")
+                    )
+            );
+            log.info("User found with username: {}", username);
+            return mapper.toDomain(user);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+    }
 }

@@ -11,4 +11,5 @@ public interface UserInputPort {
     Page<User> listAllUsers(Pageable pg);
     User getById(UUID id);
     void deleteById(UUID id);
+    User findByUsername(String username);
 }
