@@ -17,3 +17,4 @@ spring:
 
 helpdesk:
   attachments-folder: ${env.ATTACHMENTS_FOLDER}
+  jwt-secret: ${env.JWT_SECRET}
